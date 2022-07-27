@@ -9,7 +9,7 @@ function HorizontalSlider() {
     return (
         <>
 
-            <Carousel fade m-5>
+            <Carousel fade>
                 <Carousel.Item>
                     <img
                         className="d-block w-100"

@@ -1,5 +1,9 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 
+const addtocart = (items)=>{
+console.log(items)
+}
+
 function ProductCard({ items }) {
 
     return (
@@ -13,12 +17,11 @@ function ProductCard({ items }) {
                                     <Card.Img variant="top" src={items.images[0]} />
                                     <Card.Body>
                                         <Card.Title>{items.title}</Card.Title>
-                                        <Card.Title>Price</Card.Title>
+                                        <Card.Title>${items.price}</Card.Title>
                                         <Card.Text>
-                                            Some quick example text to build on the card title and make up the
-                                            bulk of the card's content.
+                                            {items.category}
                                         </Card.Text>
-                                        <Button variant="primary">ADD TO CART</Button>
+                                        <Button onClick={()=>addtocart(items)} variant="primary">ADD TO CART</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
