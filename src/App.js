@@ -1,4 +1,4 @@
-import AddToCart from "./Components/AddToCart";
+import Products from "./Components/Products";
 import { Provider } from "react-redux";
 import store from "./Components/React-Redux/ProductStore"
 
@@ -6,7 +6,7 @@ function App() {
   return (
     <Provider store={store}> 
       <div>
-        <AddToCart />
+        <Products />
       </div>
     </Provider>
   );
