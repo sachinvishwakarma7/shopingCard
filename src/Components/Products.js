@@ -1,13 +1,13 @@
 import { useSelector, useDispatch } from 'react-redux'
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { featchData } from './React-Redux/Action';
 import NavBar from './NavBar';
 import HorizontalSlider from './HorizontalSlider';
 import ProductCard from './ProductCard';
 
-function AddToCart() {
+function Products() {
 
-  const items = useSelector(state => state.products)
+  const items = useSelector(state => state.items.products)
   const dispatch = useDispatch();
   console.log(items)
 
@@ -20,10 +20,10 @@ function AddToCart() {
 
       <NavBar />
       <HorizontalSlider />
-      <ProductCard />
+      <ProductCard items={items}/>
 
     </div>
   )
 }
 
-export default AddToCart
+export default Products
