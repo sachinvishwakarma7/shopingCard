@@ -1,7 +1,6 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
-import { featchData } from './React-Redux/Action';
-import NavBar from './NavBar';
+import { featchData } from '../React-Redux/Action';
 import HorizontalSlider from './HorizontalSlider';
 import ProductCard from './ProductCard';
 
@@ -18,7 +17,6 @@ function Products() {
   return (
     <div>
 
-      <NavBar />
       <HorizontalSlider />
       <ProductCard items={items}/>
 
