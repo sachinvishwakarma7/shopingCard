@@ -1,10 +1,15 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-
-const addtocart = (items)=>{
-console.log(items)
-}
+import { allItems } from '../React-Redux/Action';
+import { useDispatch } from 'react-redux';
 
 function ProductCard({ items }) {
+
+    const dispatch = useDispatch();
+    
+    const addtocart = (items) => {
+        dispatch(allItems(items))
+        console.log(items)
+    }
 
     return (
         <div>
@@ -21,7 +26,7 @@ function ProductCard({ items }) {
                                         <Card.Text>
                                             {items.category}
                                         </Card.Text>
-                                        <Button onClick={()=>addtocart(items)} variant="primary">ADD TO CART</Button>
+                                        <Button onClick={() => addtocart(items)} variant="primary">ADD TO CART</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>

@@ -8,7 +8,7 @@ function Products() {
 
   const items = useSelector(state => state.items.products)
   const dispatch = useDispatch();
-  console.log(items)
+  // console.log(items)
 
   useEffect(() => {
     dispatch(featchData())
