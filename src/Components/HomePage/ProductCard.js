@@ -4,26 +4,30 @@ import { useDispatch } from 'react-redux';
 
 function ProductCard({ items, searchValue }) {
 
-    const dispatch = useDispatch();
+
+    let dispatch = useDispatch();
+
+
+    let newItems = items.filter(data => {
+        return Object.values(data).join(" ").toLowerCase().includes(searchValue)
+    })
 
     const addtocart = (items) => {
         dispatch(allItems(items))
     }
-
-    const newItems = items.filter(data => {
-        return Object.values(data).join(" ").toLowerCase().includes(searchValue)
-    })
 
     // console.log('ProductCard', searchValue)
     return (
         <div>
             {newItems.length > 0 ?
                 <Container>
-                    <Row className="justify-content-md-center m-3" >
+                    <Row className="justify-content-md-center" >
                         {newItems.map((newItems) =>
                             <Col key={newItems.id}>
-                                <Card className='m-2' style={{ width: '18rem', textAlign: 'center' }}>
-                                    <Card.Img variant="top" src={newItems.images[0]} />
+                                <Card className='m-2' style={{ width: '18rem', textAlign: 'center', alignItems: 'center' }}>
+                                    <div style={{ width: '200px', height: '200px' }}>
+                                        <Card.Img className='h-100 w-100' variant="top" src={newItems.images[0]} />
+                                    </div>
                                     <Card.Body>
                                         <Card.Title>{newItems.title}</Card.Title>
                                         <Card.Title>${newItems.price}</Card.Title>
@@ -37,7 +41,7 @@ function ProductCard({ items, searchValue }) {
                         )}
 
                     </Row>
-                </Container> : <h4>"Opp...s! Empty Cart Please Add Items...."</h4>
+                </Container> : <h4 style={{ textAlign: 'center', color: 'var(--bs-danger)' }}>"Opp...s! Please Try Again...."</h4>
             }
         </div>
     );

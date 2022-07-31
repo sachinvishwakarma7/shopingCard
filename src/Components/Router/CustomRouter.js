@@ -7,8 +7,8 @@ import NavBar from '../NavBar/NavBar'
 function CustomRouter(props) {
 
   const [searchText, setSearchText] = useState('')
-  
-  const searchValue = (Value) => {
+
+  let searchValue = (Value) => {
     setSearchText(Value)
     // console.log('CustomRouter', Value)
   }

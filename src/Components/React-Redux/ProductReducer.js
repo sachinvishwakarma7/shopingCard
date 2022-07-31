@@ -32,6 +32,9 @@ export const ProductReducer = (state = initialState, action) => {
 }
 
 export const CartItemsReducer = (state = cartItems, action) => {
+    console.log('ProductReducer', state.items)
+    console.log('payload', action.payload)
+
     switch (action.type) {
         case ADD_ITEM: return {
             ...state,
@@ -41,10 +44,11 @@ export const CartItemsReducer = (state = cartItems, action) => {
             ...state,
             items: action.payload
         }
-        case DELETE_ITEM: return {
-            ...state,
-            items: state.items.filter(items => items.id !== action.payload)
-        }
+        case DELETE_ITEM:
+            return {
+                ...state,
+                items: state.items.filter(items => items.id !== action.payload)
+            }
         default: return state;
     }
 }

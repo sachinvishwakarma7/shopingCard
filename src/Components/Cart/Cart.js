@@ -9,37 +9,41 @@ function Cart() {
 
     let items = useSelector(state => state.cartProduct.items)
 
-    useEffect(() => {
-        setProducts(AddProductQuantity)
-        // console.log('useEffect', items)
-    }, []);
-
-    const AddProductQuantity = items.map(items => {
+    let AddProductQuantity = items.map(items => {
         return { ...items, product_quantity: 1 }
     })
 
-    const handleDecrement = (cart_id) => {
-        setProducts((products) =>
 
-            products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity > 1 ? items.product_quantity - 1 : 1 } : (items))
 
-        );
+    let handleDecrement = (cart_id) => {
+        setProducts(products =>
+
+            products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity > 1 ? items.product_quantity - 1 : 1 } : items)
+
+        )
     }
 
-    const handleIncrement = (cart_id) => {
-        setProducts((products) =>
-            products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity < 10 ? items.product_quantity + 1 : 1 } : (items))
-        );
+    let handleIncrement = (cart_id) => {
+        setProducts(products =>
+            products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity < 10 ? items.product_quantity + 1 : 1 } : items)
+        )
     }
 
-    // console.log(products)
-    // const newProductPrice = productPrice;
 
+    useEffect(() => {
+        setProducts(AddProductQuantity)
+        console.log('useEffect,items', items)
+        // console.log('useEffect,AddProductQuantity', AddProductQuantity)
+    }, [items])
 
-    let dispatch = useDispatch();
+    let dispatch = useDispatch()
     let deleteItems = (id) => {
+
+        console.log('deleteItems', id)
         dispatch(deleteItem(id))
     }
+
+
     return (
         <>
             <h5 className='text-center p-3' style={{ backgroundColor: 'var(--bs-gray-100)', color: 'var(--bs-gray-dark)' }}>YOUR CART</h5>

@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux'
 import { useEffect } from 'react';
 import { featchData } from '../React-Redux/Action';
-import HorizontalSlider from './HorizontalSlider';
+// import HorizontalSlider from './HorizontalSlider';
 import ProductCard from './ProductCard';
 
 function Products({ searchValue }) {
@@ -17,7 +17,7 @@ function Products({ searchValue }) {
   return (
     <div>
 
-      <HorizontalSlider />
+      {/* <HorizontalSlider /> */}
       <ProductCard items={items} searchValue={searchValue} />
 
     </div>
