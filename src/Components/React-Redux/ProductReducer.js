@@ -32,8 +32,8 @@ export const ProductReducer = (state = initialState, action) => {
 }
 
 export const CartItemsReducer = (state = cartItems, action) => {
-    console.log('ProductReducer', state.items)
-    console.log('payload', action.payload)
+    // console.log('ProductReducer', state.items)
+    // console.log('payload', action.payload)
 
     switch (action.type) {
         case ADD_ITEM: return {

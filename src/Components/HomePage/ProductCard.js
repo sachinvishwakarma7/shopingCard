@@ -1,9 +1,11 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { allItems } from '../React-Redux/Action';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 function ProductCard({ items, searchValue }) {
 
+    let cartProduct = useSelector(state => state.cartProduct.items)
+    console.log(cartProduct)
 
     let dispatch = useDispatch();
 
@@ -13,7 +15,11 @@ function ProductCard({ items, searchValue }) {
     })
 
     const addtocart = (items) => {
-        dispatch(allItems(items))
+        if (cartProduct.some(item => item.id === items.id)) {
+            alert("item is already in you cart!... Please Check your cart")
+        } else {
+            dispatch(allItems(items))
+        }
     }
 
     // console.log('ProductCard', searchValue)

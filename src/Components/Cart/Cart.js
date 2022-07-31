@@ -13,8 +13,6 @@ function Cart() {
         return { ...items, product_quantity: 1 }
     })
 
-
-
     let handleDecrement = (cart_id) => {
         setProducts(products =>
 
@@ -30,26 +28,50 @@ function Cart() {
     }
 
 
+    const subtotal1 = products.map(item =>
+        item.product_quantity * item.price
+    )
+    const subtotal2 = (subtotal) => {
+        let sum = 0;
+        for (let i = 0; i < subtotal.length; i++) {
+            sum = sum + subtotal[i];
+        }
+        return sum;
+    }
+    // console.log(subtotal2(subtotal1))
+
+    let maximumAmountToApply = 100;
+    const total = (fee) => {
+        let num = subtotal2(subtotal1);
+        if (num < fee) {
+            return num = parseFloat((num * 0.1).toFixed(2))
+        } else {
+            return 0;
+        }
+    }
+    // console.log(total(maximumAmountToApply))
+
+
     useEffect(() => {
         setProducts(AddProductQuantity)
-        console.log('useEffect,items', items)
+        // console.log('useEffect,items', items)
         // console.log('useEffect,AddProductQuantity', AddProductQuantity)
     }, [items])
 
     let dispatch = useDispatch()
     let deleteItems = (id) => {
 
-        console.log('deleteItems', id)
+        // console.log('deleteItems', id)
         dispatch(deleteItem(id))
     }
 
 
     return (
         <>
-            <h5 className='text-center p-3' style={{ backgroundColor: 'var(--bs-gray-100)', color: 'var(--bs-gray-dark)' }}>YOUR CART</h5>
+            <h5 className='text-center p-3' style={{ backgroundColor: 'var(--bs-gray-100)', color: 'var(--bs-primary)' }}>YOUR CART</h5>
             <div className='m-3'>
                 {items.length > 0 ?
-                    <Table className='table table-condensed text-center' style={{ alignItems: 'center', textAlign: 'center' }}>
+                    <Table className='table table-condensed text-center' style={{ alignItems: 'center', textAlign: 'center', tableLayout: 'fixed' }}>
                         <thead className='text-center'>
                             <tr>
                                 <th>#</th>
@@ -64,10 +86,15 @@ function Cart() {
                                 <tr>
                                     <td>{num + 1}</td>
                                     <td>
-                                        <img style={{ width: '70px' }} src={items.images[0]} alt='product' />
-                                        <p>
-                                            {items.title}
-                                        </p>
+                                        <div>
+                                            <img style={{ width: '70px' }} src={items.images[0]} alt='product' />
+                                            <span style={{ fontWeight: 'bold' }}>
+                                                {items.title}
+                                            </span>
+                                            <p>
+                                                {items.description}
+                                            </p>
+                                        </div>
                                     </td>
                                     <td>
                                         <button style={{ width: '2em' }} type='number' onClick={() => handleDecrement(items.id)}>-</button>
@@ -89,13 +116,13 @@ function Cart() {
                         <Card.Body>
                             <Row>
                                 <Col>
-                                    <Card.Title>SubTotal : $250</Card.Title>
-                                    <Card.Title>Shipping Fee : $20</Card.Title>
-                                    <Card.Title style={{ borderTop: '1px solid gainsboro', paddingTop: '10px', marginTop: '20px' }}>Total : $270</Card.Title>
+                                    <Card.Title>SubTotal : ${subtotal2(subtotal1)}</Card.Title>
+                                    <Card.Title>Shipping Fee : ${total(maximumAmountToApply)}</Card.Title>
+                                    <Card.Title style={{ borderTop: '1px solid gainsboro', paddingTop: '10px', marginTop: '20px' }}>Total : ${subtotal2(subtotal1) + total(maximumAmountToApply)}</Card.Title>
                                 </Col>
                                 <Col>
                                     <Card.Text>
-                                        With supporting text below as a natural lead-in to additional content.
+                                        Shipping charges are depends your product. If your subtotal are lessthan $100 shipping charge deduct 10% if your subtotal is greater than $100 shipping charges are free <br/><u><small>(apply term and condition.)</small></u>
                                     </Card.Text>
                                 </Col>
                             </Row>
