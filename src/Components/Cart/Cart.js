@@ -1,69 +1,108 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, Card, Button, Container, Row, Col } from 'react-bootstrap'
 import { MdDeleteForever } from 'react-icons/md'
-import Stepper from './Stepper'
-import { useSelector } from 'react-redux'
+import { deleteItem } from '../React-Redux/Action'
+import { useSelector, useDispatch } from 'react-redux'
 
 function Cart() {
-    const items = useSelector(state => state.cartProduct.items)
-    // console.log(items)
+    let [products, setProducts] = useState([])
+
+    let items = useSelector(state => state.cartProduct.items)
+
+    useEffect(() => {
+        setProducts(AddProductQuantity)
+        // console.log('useEffect', items)
+    }, []);
+
+    const AddProductQuantity = items.map(items => {
+        return { ...items, product_quantity: 1 }
+    })
+
+    const handleDecrement = (cart_id) => {
+        setProducts((products) =>
+
+            products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity > 1 ? items.product_quantity - 1 : 1 } : (items))
+
+        );
+    }
+
+    const handleIncrement = (cart_id) => {
+        setProducts((products) =>
+            products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity < 10 ? items.product_quantity + 1 : 1 } : (items))
+        );
+    }
+
+    // console.log(products)
+    // const newProductPrice = productPrice;
+
+
+    let dispatch = useDispatch();
+    let deleteItems = (id) => {
+        dispatch(deleteItem(id))
+    }
     return (
-        <div className='m-3'>
-            <h4 className='text-center m-4'>YOUR CART</h4>
-            {items.length > 0 ?
-                <Table className='table table-condensed text-center' style={{alignItems:'center',textAlign:'center'}}>
-                    <thead className='text-center'>
-                        <tr>
-                            <th>#</th>
-                            <th>Product</th>
-                            <th>Quantity</th>
-                            <th>price</th>
-                            <th>Remove</th>
-                        </tr>
-                    </thead>
-                    {items.map((items, num) =>
-                        <tbody key={items.id}>
+        <>
+            <h5 className='text-center p-3' style={{ backgroundColor: 'var(--bs-gray-100)', color: 'var(--bs-gray-dark)' }}>YOUR CART</h5>
+            <div className='m-3'>
+                {items.length > 0 ?
+                    <Table className='table table-condensed text-center' style={{ alignItems: 'center', textAlign: 'center' }}>
+                        <thead className='text-center'>
                             <tr>
-                                <td>{num + 1}</td>
-                                <td>
-                                    <img style={{ width: '70px' }} src={items.images[0]} alt='product' />
-                                    <p>
-                                        {items.title}
-                                    </p>
-                                </td>
-                                <td><Stepper /></td>
-                                <td>${items.price}</td>
-                                <td><MdDeleteForever size={30} color='var(--bs-danger)' /></td>
+                                <th>#</th>
+                                <th>Product</th>
+                                <th>Quantity</th>
+                                <th>price</th>
+                                <th>Remove</th>
                             </tr>
-                        </tbody>
-                    )}
+                        </thead>
+                        {products.map((items, num) =>
+                            <tbody key={items.id}>
+                                <tr>
+                                    <td>{num + 1}</td>
+                                    <td>
+                                        <img style={{ width: '70px' }} src={items.images[0]} alt='product' />
+                                        <p>
+                                            {items.title}
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <button style={{ width: '2em' }} type='number' onClick={() => handleDecrement(items.id)}>-</button>
+                                        <span style={{ padding: '1em' }}>{items.product_quantity}</span>
+                                        <button style={{ width: '2em' }} type='number' onClick={() => handleIncrement(items.id)}>+</button>
+                                    </td>
+                                    <td>${(items.price) * (items.product_quantity)}</td>
+                                    <td><MdDeleteForever size={30} onClick={() => deleteItems(items.id)} color='var(--bs-danger)' /></td>
+                                </tr>
+                            </tbody>
+                        )}
 
-                </Table> : null
-            }
+                    </Table> : <h5 style={{ textAlign: 'center', color: 'var(--bs-danger)' }}>"Opp...s! Your Cart is Empty Please Add Items...."</h5>
+                }
 
-            <Card>
-                <Card.Header className='text-center' as='h5'>ORDER SUMMARY</Card.Header>
-                <Container>
-                    <Card.Body>
-                        <Row>
-                            <Col>
-                                <Card.Title>SubTotal : $250</Card.Title>
-                                <Card.Title>Shipping Fee : $20</Card.Title>
-                                <Card.Title style={{ borderTop: '1px solid gainsboro', paddingTop: '10px', marginTop: '20px' }}>Total : $270</Card.Title>
-                            </Col>
-                            <Col>
-                                <Card.Text>
-                                    With supporting text below as a natural lead-in to additional content.
-                                </Card.Text>
-                            </Col>
-                        </Row>
-                    </Card.Body>
-                </Container>
-                <Card.Footer className="text-center">
-                    <Button variant="primary">CHECKOUT</Button>
-                </Card.Footer>
-            </Card>
-        </div>
+                <Card>
+                    <Card.Header className='text-center' as='h5'>ORDER SUMMARY</Card.Header>
+                    <Container>
+                        <Card.Body>
+                            <Row>
+                                <Col>
+                                    <Card.Title>SubTotal : $250</Card.Title>
+                                    <Card.Title>Shipping Fee : $20</Card.Title>
+                                    <Card.Title style={{ borderTop: '1px solid gainsboro', paddingTop: '10px', marginTop: '20px' }}>Total : $270</Card.Title>
+                                </Col>
+                                <Col>
+                                    <Card.Text>
+                                        With supporting text below as a natural lead-in to additional content.
+                                    </Card.Text>
+                                </Col>
+                            </Row>
+                        </Card.Body>
+                    </Container>
+                    <Card.Footer className="text-center">
+                        <Button variant="primary">CHECKOUT</Button>
+                    </Card.Footer>
+                </Card>
+            </div>
+        </>
     )
 }
 

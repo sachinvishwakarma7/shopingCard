@@ -36,7 +36,7 @@ export const getAllItem = (items) => {
     }
 }
 
-export const deletItems = (id) => {
+export const deleteItem = (id) => {
     return {
         type: DELETE_ITEM,
         payload : id

@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 
-function Stepper() {
+function Stepper({ quantity }) {
 
     const [count, setcount] = useState(1)
+
 
     const inc = () => {
         setcount(count + 1)
@@ -16,9 +17,10 @@ function Stepper() {
 
     return (
         <div>
-            <button style={{width:'2em'}} onClick={dec}>-</button>
-            <span style={{padding:'1em'}}>{count}</span>
-            <button style={{width:'2em'}} onClick={inc}>+</button>
+            <button style={{ width: '2em' }} onClick={dec}>-</button>
+            <span style={{ padding: '1em' }}>{count}</span>
+            {quantity(count)}
+            <button style={{ width: '2em' }} onClick={inc}>+</button>
         </div>
     )
 }

@@ -4,21 +4,21 @@ import { featchData } from '../React-Redux/Action';
 import HorizontalSlider from './HorizontalSlider';
 import ProductCard from './ProductCard';
 
-function Products() {
-
+function Products({ searchValue }) {
   const items = useSelector(state => state.items.products)
   const dispatch = useDispatch();
-  // console.log(items)
+  // console.log('Products',props.searchText)
 
   useEffect(() => {
     dispatch(featchData())
-  }, [])
+  }, [dispatch])
 
+  // console.log('Products', searchValue)
   return (
     <div>
 
       <HorizontalSlider />
-      <ProductCard items={items}/>
+      <ProductCard items={items} searchValue={searchValue} />
 
     </div>
   )
