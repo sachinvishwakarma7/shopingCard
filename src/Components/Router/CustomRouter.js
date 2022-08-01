@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Products from '../HomePage/Products'
 import Cart from '../Cart/Cart'
+import AddNewPorduct from '../HomePage/AddNewPorduct'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import NavBar from '../NavBar/NavBar'
 
@@ -20,6 +21,7 @@ function CustomRouter(props) {
 
           <Route path='/' element={<Products searchValue={searchText} />}></Route>
           <Route path='/cart' element={<Cart />}></Route>
+          <Route path='/add_product' element={<AddNewPorduct />}></Route>
 
         </Routes>
       </BrowserRouter>

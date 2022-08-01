@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 function Cart() {
     let [products, setProducts] = useState([])
 
+
     let items = useSelector(state => state.cartProduct.items)
 
     let AddProductQuantity = items.map(items => {
@@ -18,8 +19,8 @@ function Cart() {
 
             products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity > 1 ? items.product_quantity - 1 : 1 } : items)
 
-        )
-    }
+            )
+        }
 
     let handleIncrement = (cart_id) => {
         setProducts(products =>
@@ -87,7 +88,7 @@ function Cart() {
                                     <td>{num + 1}</td>
                                     <td>
                                         <div>
-                                            <img style={{ width: '70px' }} src={items.images[0]} alt='product' />
+                                            <img style={{ width: '70px' }} src={items.image} alt='product' />
                                             <span style={{ fontWeight: 'bold' }}>
                                                 {items.title}
                                             </span>

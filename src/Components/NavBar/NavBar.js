@@ -16,23 +16,24 @@ function NavBar({ searchText }) {
     let itemsLength = useSelector(state => state.cartProduct.items)
     return (
         <>
-            <Navbar bg="light" expand="lg" fixed="top" style={{ position: "sticky" }}>
-                <Container fluid>
-                    <Navbar.Brand className="me-auto my-2 mx-5 my-lg-3 h1" href="#">Shopping Cart</Navbar.Brand>
+            <Navbar bg="light" expand="md" fixed="top" style={{ position: "sticky" }}>
+                <Container>
+                    <Navbar.Brand className="me-auto my-1 mx-5 my-lg-3" color='red' href="/">Shopping Cart</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
-                            className="me-auto my-4 mx-5 my-lg-3"
-                            style={{ maxHeight: '100px', fontSize: '20px' }}
+                            className="me-auto my-2 mx-5 my-lg-3"
+                            style={{ maxHeight: '200px', fontSize: '20px' }}
                             navbarScroll
                         >
-                            {/* <Nav.Link href="#action1">Home</Nav.Link> */}
-                            {/* <Nav.Link href="#action2">Cart</Nav.Link> */}
+                            {/* <Nav.Link href="/">Home</Nav.Link>
+                            <Nav.Link href="/cart">Cart<Badge bg='danger' style={{ fontSize: '14px' }}>{itemsLength.length}</Badge></Nav.Link> */}
+
                             <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/">Home</Link></Navbar.Brand>
                             <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/cart">Cart<Badge bg='danger' style={{ fontSize: '14px' }}>{itemsLength.length}</Badge></Link></Navbar.Brand>
-
+                            {/* <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/add_product">AddProduct</Link></Navbar.Brand> */}
                         </Nav>
-                        <Form>
+                        <Form className='navbar-left'>
                             <Form.Control type="text" placeholder="Search"
                                 name='name'
                                 value={searchItem}
@@ -40,8 +41,10 @@ function NavBar({ searchText }) {
                             />
                             {searchText(searchItem)}
                         </Form>
+
                         <Nav>
-                            <Button variant="outline-primary">Login</Button>
+                            <Button className='m-2' href='/add_product' variant="outline-primary">Add_Product</Button>
+                            <Button className='m-2' variant="outline-primary">Login</Button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

@@ -25,31 +25,71 @@ const getError = (error) => {
 export const allItems = (items) => {
     return {
         type: ADD_ITEM,
-        payload : items
+        payload: items
     }
 }
 
 export const getAllItem = (items) => {
     return {
         type: GET_ALL_ITEMS,
-        payload : items
+        payload: items
     }
 }
 
 export const deleteItem = (id) => {
     return {
         type: DELETE_ITEM,
-        payload : id
+        payload: id
     }
 }
 
+// export const featchData = () => {
+//     return (dispatch) => {
+//         dispatch(Request());
+//         axios.get('https://dummyjson.com/products')
+//             .then(response => {
+//                 // console.log(response.data.products);
+//                 const products = response.data.products;
+//                 dispatch(getRequest(products));
+//             })
+//             .catch(error => {
+//                 console.log(error);
+//                 dispatch(getError(error));
+//             });
+//     }
+// }
+
 export const featchData = () => {
+
     return (dispatch) => {
         dispatch(Request());
-        axios.get('https://dummyjson.com/products')
+        axios.get('https://fakestoreapi.com/products')
             .then(response => {
-                // console.log(response.data.products);
-                const products = response.data.products;
+                console.log(response.data);
+                const products = response.data;
+                dispatch(getRequest(products));
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(getError(error));
+            });
+    }
+}
+
+export const addNewProduct = (title, price, description, image, category) => {
+    let param = {
+        title: title,
+        price: price,
+        description: description,
+        image: image,
+        category: category
+    }
+    return (dispatch) => {
+        dispatch(Request());
+        axios.post('https://fakestoreapi.com/products', param)
+            .then(response => {
+                console.log(response.data);
+                const products = response.data;
                 dispatch(getRequest(products));
             })
             .catch(error => {
