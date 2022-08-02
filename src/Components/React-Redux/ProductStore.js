@@ -1,20 +1,20 @@
-import { ProductReducer } from './ProductReducer'
+import { ProductReducer, CartItemsReducer, addNewProductReducer } from './ProductReducer'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { CartItemsReducer } from './ProductReducer'
 
 const rootReducer = combineReducers({
     items: ProductReducer,
-    cartProduct: CartItemsReducer
+    cartProduct: CartItemsReducer,
+    addNewProduct: addNewProductReducer
 })
 
 const persistConfig = {
     key: 'root',
     storage,
-    blacklist: ['reducer']
-    // whitelist:['reducer']
+    blacklist: ['reducer'] //use for store data to multipal webpages
+    // whitelist:['reducer'] //use for store data to single webpage
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)

@@ -6,6 +6,7 @@ import ProductCard from './ProductCard';
 
 function Products({ searchValue }) {
   const items = useSelector(state => state.items.products)
+  console.log('Products', items)
   const dispatch = useDispatch();
   // console.log('Products',props.searchText)
 

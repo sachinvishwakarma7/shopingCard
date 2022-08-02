@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 function ProductCard({ items, searchValue }) {
 
     let cartProduct = useSelector(state => state.cartProduct.items)
-    console.log(cartProduct)
+    // console.log("ProductCard",items)
 
     let dispatch = useDispatch();
 
@@ -32,7 +32,7 @@ function ProductCard({ items, searchValue }) {
                             <Col key={newItems.id}>
                                 <Card className='m-2' style={{ width: '18rem', textAlign: 'center', alignItems: 'center' }}>
                                     <div style={{ width: '200px', height: '200px' }}>
-                                        <Card.Img className='h-100 w-100' variant="top" src={newItems.image} />
+                                        <Card.Img className='h-100 w-100' variant="top" src={newItems.images[0]} />
                                     </div>
                                     <Card.Body>
                                         <Card.Title>{newItems.title}</Card.Title>

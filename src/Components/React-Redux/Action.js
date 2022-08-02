@@ -1,6 +1,7 @@
 import axios from 'axios'
 import { USER_SEND_REQUEST, USER_GET_REQUEST, GET_ERROR } from './Type'
 import { ADD_ITEM, GET_ALL_ITEMS, DELETE_ITEM } from './Type'
+import { ADD_NEW_PRODUCT } from './Type'
 
 const Request = () => {
     return {
@@ -43,30 +44,20 @@ export const deleteItem = (id) => {
     }
 }
 
-// export const featchData = () => {
-//     return (dispatch) => {
-//         dispatch(Request());
-//         axios.get('https://dummyjson.com/products')
-//             .then(response => {
-//                 // console.log(response.data.products);
-//                 const products = response.data.products;
-//                 dispatch(getRequest(products));
-//             })
-//             .catch(error => {
-//                 console.log(error);
-//                 dispatch(getError(error));
-//             });
-//     }
-// }
+export const addNewProduct = (product) => {
+    return {
+        type: ADD_NEW_PRODUCT,
+        payload: product
+    }
+}
 
 export const featchData = () => {
-
-    return (dispatch) => {
+    return async (dispatch) => {
         dispatch(Request());
-        axios.get('https://fakestoreapi.com/products')
+        await axios.get('https://dummyjson.com/products')
             .then(response => {
-                console.log(response.data);
-                const products = response.data;
+                console.log(response.data.products);
+                const products = response.data.products;
                 dispatch(getRequest(products));
             })
             .catch(error => {
@@ -76,17 +67,33 @@ export const featchData = () => {
     }
 }
 
-export const addNewProduct = (title, price, description, image, category) => {
+// export const featchData = () => {
+
+//     return async (dispatch) => {
+//         dispatch(Request());
+//         await axios.get('https://fakestoreapi.com/products')
+//             .then(response => {
+//                 console.log(response.data);
+//                 const products = response.data;
+//                 dispatch(getRequest(products));
+//             })
+//             .catch(error => {
+//                 console.log(error);
+//                 dispatch(getError(error));
+//             });
+//     }
+// }
+
+export const addNewProductfeatch = (title, price, description, image, category) => {
     let param = {
-        title: title,
-        price: price,
-        description: description,
-        image: image,
-        category: category
+        "title": title,
+        "price": price,
+        "description": description,
+        "image": image,
+        "category": category
     }
-    return (dispatch) => {
-        dispatch(Request());
-        axios.post('https://fakestoreapi.com/products', param)
+    return async (dispatch) => {
+        await axios.post('https://fakestoreapi.com/products', param)
             .then(response => {
                 console.log(response.data);
                 const products = response.data;

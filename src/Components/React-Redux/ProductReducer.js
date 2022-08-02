@@ -52,3 +52,14 @@ export const CartItemsReducer = (state = cartItems, action) => {
         default: return state;
     }
 }
+
+export const addNewProductReducer = (state = initialState, action) => {
+
+    switch (action.type) {
+        case USER_GET_REQUEST: return {
+            ...state,
+            products: [...state.products, action.payload]
+        }
+        default: return state;
+    }
+}

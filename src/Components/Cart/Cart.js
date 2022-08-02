@@ -9,6 +9,7 @@ function Cart() {
 
 
     let items = useSelector(state => state.cartProduct.items)
+    console.log("useSelector",items)
 
     let AddProductQuantity = items.map(items => {
         return { ...items, product_quantity: 1 }
@@ -88,7 +89,7 @@ function Cart() {
                                     <td>{num + 1}</td>
                                     <td>
                                         <div>
-                                            <img style={{ width: '70px' }} src={items.image} alt='product' />
+                                            <img style={{ width: '70px' }} src={items.images[0]} alt='product' />
                                             <span style={{ fontWeight: 'bold' }}>
                                                 {items.title}
                                             </span>
