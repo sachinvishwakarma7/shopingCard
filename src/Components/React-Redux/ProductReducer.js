@@ -1,5 +1,6 @@
 import { USER_SEND_REQUEST, USER_GET_REQUEST, GET_ERROR } from './Type'
 import { ADD_ITEM, GET_ALL_ITEMS, DELETE_ITEM } from './Type'
+import { ADD_NEW_PRODUCT_REQUEST, ADD_NEW_PRODUCT, ADD_NEW_PRODUCT_ERROR } from './Type'
 
 const cartItems = {
     items: []
@@ -9,6 +10,12 @@ const initialState = {
     products: [],
     loading: false,
     error: ''
+}
+
+const initialStateAddProduct = {
+    product: {},
+    loading: false,
+    error: ""
 }
 
 export const ProductReducer = (state = initialState, action) => {
@@ -53,13 +60,25 @@ export const CartItemsReducer = (state = cartItems, action) => {
     }
 }
 
-export const addNewProductReducer = (state = initialState, action) => {
-
+export const addNewProductReducer = (state = initialStateAddProduct, action) => {
+    console.log("add", action.payload)
     switch (action.type) {
-        case USER_GET_REQUEST: return {
+        case ADD_NEW_PRODUCT_REQUEST: return {
             ...state,
-            products: [...state.products, action.payload]
+            loading: true
         }
+        case ADD_NEW_PRODUCT: return {
+            ...state,
+            product: action.payload,
+            loading: false
+        }
+        case ADD_NEW_PRODUCT_ERROR: return {
+            ...state,
+            loading: false,
+            error: action.payload,
+            product: {}
+        }
+
         default: return state;
     }
 }

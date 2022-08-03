@@ -1,6 +1,7 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
 import { allItems } from '../React-Redux/Action';
 import { useDispatch, useSelector } from 'react-redux';
+import { imagesArray } from '../ProductImageArray/ImagesArray';
 
 function ProductCard({ items, searchValue }) {
 
@@ -32,13 +33,13 @@ function ProductCard({ items, searchValue }) {
                             <Col key={newItems.id}>
                                 <Card className='m-2' style={{ width: '18rem', textAlign: 'center', alignItems: 'center' }}>
                                     <div style={{ width: '200px', height: '200px' }}>
-                                        <Card.Img className='h-100 w-100' variant="top" src={newItems.images[0]} />
+                                        <Card.Img className='h-100 w-100' variant="top" src={imagesArray[newItems.id - 3]} />
                                     </div>
                                     <Card.Body>
-                                        <Card.Title>{newItems.title}</Card.Title>
-                                        <Card.Title>${newItems.price}</Card.Title>
+                                        <Card.Title>{newItems.product_name}</Card.Title>
+                                        <Card.Title>${newItems.product_price}</Card.Title>
                                         <Card.Text>
-                                            {newItems.category}
+                                            {newItems.product_brand}
                                         </Card.Text>
                                         <Button onClick={() => addtocart(newItems)} variant="primary">ADD TO CART</Button>
                                     </Card.Body>

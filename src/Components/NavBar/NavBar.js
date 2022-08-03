@@ -33,7 +33,7 @@ function NavBar({ searchText }) {
                             <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/cart">Cart<Badge bg='danger' style={{ fontSize: '14px' }}>{itemsLength.length}</Badge></Link></Navbar.Brand>
                             {/* <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/add_product">AddProduct</Link></Navbar.Brand> */}
                         </Nav>
-                        <Form className='navbar-left'>
+                        <Form className='navbar-left m-2'>
                             <Form.Control type="text" placeholder="Search"
                                 name='name'
                                 value={searchItem}
@@ -43,8 +43,10 @@ function NavBar({ searchText }) {
                         </Form>
 
                         <Nav>
-                            <Button className='m-2' href="/add_product" variant="outline-primary">Add_Product</Button>
-                            <Button className='m-2' variant="outline-primary">Login</Button>
+                            <Button className='m-2' href="/add_product" variant="outline-primary">Add_Item</Button>
+                            <Button className='m-2' href="/delete_product" variant="outline-primary">Delete_Item</Button>
+                            <Button className='m-2' variant="outline-primary">Update_Item</Button>
+                            <Button className='m-2' variant="danger">Login</Button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

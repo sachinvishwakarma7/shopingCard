@@ -3,13 +3,14 @@ import { Table, Card, Button, Container, Row, Col } from 'react-bootstrap'
 import { MdDeleteForever } from 'react-icons/md'
 import { deleteItem } from '../React-Redux/Action'
 import { useSelector, useDispatch } from 'react-redux'
+import { imagesArray } from '../ProductImageArray/ImagesArray'
 
 function Cart() {
     let [products, setProducts] = useState([])
 
 
     let items = useSelector(state => state.cartProduct.items)
-    console.log("useSelector",items)
+    console.log("useSelector", items)
 
     let AddProductQuantity = items.map(items => {
         return { ...items, product_quantity: 1 }
@@ -20,8 +21,8 @@ function Cart() {
 
             products.map(items => items.id === cart_id ? { ...items, product_quantity: items.product_quantity > 1 ? items.product_quantity - 1 : 1 } : items)
 
-            )
-        }
+        )
+    }
 
     let handleIncrement = (cart_id) => {
         setProducts(products =>
@@ -31,7 +32,7 @@ function Cart() {
 
 
     const subtotal1 = products.map(item =>
-        item.product_quantity * item.price
+        item.product_quantity * item.product_price
     )
     const subtotal2 = (subtotal) => {
         let sum = 0;
@@ -89,12 +90,12 @@ function Cart() {
                                     <td>{num + 1}</td>
                                     <td>
                                         <div>
-                                            <img style={{ width: '70px' }} src={items.images[0]} alt='product' />
+                                            <img style={{ width: '70px' }} src={imagesArray[items.id - 3]} alt='product' />
                                             <span style={{ fontWeight: 'bold' }}>
-                                                {items.title}
+                                                {items.product_name}
                                             </span>
                                             <p>
-                                                {items.description}
+                                                {items.product_brand}
                                             </p>
                                         </div>
                                     </td>
@@ -103,7 +104,7 @@ function Cart() {
                                         <span style={{ padding: '1em' }}>{items.product_quantity}</span>
                                         <button style={{ width: '2em' }} type='number' onClick={() => handleIncrement(items.id)}>+</button>
                                     </td>
-                                    <td>${(items.price) * (items.product_quantity)}</td>
+                                    <td>${((items.product_price) * (items.product_quantity)).toFixed(2)}</td>
                                     <td><MdDeleteForever size={30} onClick={() => deleteItems(items.id)} color='var(--bs-danger)' /></td>
                                 </tr>
                             </tbody>
@@ -118,13 +119,13 @@ function Cart() {
                         <Card.Body>
                             <Row>
                                 <Col>
-                                    <Card.Title>SubTotal : ${subtotal2(subtotal1)}</Card.Title>
+                                    <Card.Title>SubTotal : ${(subtotal2(subtotal1)).toFixed(2)}</Card.Title>
                                     <Card.Title>Shipping Fee : ${total(maximumAmountToApply)}</Card.Title>
-                                    <Card.Title style={{ borderTop: '1px solid gainsboro', paddingTop: '10px', marginTop: '20px' }}>Total : ${subtotal2(subtotal1) + total(maximumAmountToApply)}</Card.Title>
+                                    <Card.Title style={{ borderTop: '1px solid gainsboro', paddingTop: '10px', marginTop: '20px' }}>Total : ${(subtotal2(subtotal1) + total(maximumAmountToApply)).toFixed(2)}</Card.Title>
                                 </Col>
                                 <Col>
                                     <Card.Text>
-                                        Shipping charges are depends your product. If your subtotal are lessthan $100 shipping charge deduct 10% if your subtotal is greater than $100 shipping charges are free <br/><u><small>(apply term and condition.)</small></u>
+                                        Shipping charges are depends your product. If your subtotal are lessthan $100 shipping charge deduct 10% if your subtotal is greater than $100 shipping charges are free <br /><u><small>(apply term and condition.)</small></u>
                                     </Card.Text>
                                 </Col>
                             </Row>

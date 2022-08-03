@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { USER_SEND_REQUEST, USER_GET_REQUEST, GET_ERROR } from './Type'
 import { ADD_ITEM, GET_ALL_ITEMS, DELETE_ITEM } from './Type'
-import { ADD_NEW_PRODUCT } from './Type'
+import { ADD_NEW_PRODUCT_REQUEST, ADD_NEW_PRODUCT, ADD_NEW_PRODUCT_ERROR } from './Type'
 
 const Request = () => {
     return {
@@ -44,37 +44,33 @@ export const deleteItem = (id) => {
     }
 }
 
-export const addNewProduct = (product) => {
+const addNewProductRequest = () => {
+    return {
+        type: ADD_NEW_PRODUCT_REQUEST
+    }
+}
+
+const addNewProduct = (product) => {
     return {
         type: ADD_NEW_PRODUCT,
         payload: product
     }
 }
 
-export const featchData = () => {
-    return async (dispatch) => {
-        dispatch(Request());
-        await axios.get('https://dummyjson.com/products')
-            .then(response => {
-                console.log(response.data.products);
-                const products = response.data.products;
-                dispatch(getRequest(products));
-            })
-            .catch(error => {
-                console.log(error);
-                dispatch(getError(error));
-            });
+const addNewProductError = (error) => {
+    return {
+        type: ADD_NEW_PRODUCT_ERROR,
+        payload: error
     }
 }
 
 // export const featchData = () => {
-
 //     return async (dispatch) => {
 //         dispatch(Request());
-//         await axios.get('https://fakestoreapi.com/products')
+//         await axios.get('https://dummyjson.com/products')
 //             .then(response => {
-//                 console.log(response.data);
-//                 const products = response.data;
+//                 console.log(response.data.products);
+//                 const products = response.data.products;
 //                 dispatch(getRequest(products));
 //             })
 //             .catch(error => {
@@ -84,24 +80,42 @@ export const featchData = () => {
 //     }
 // }
 
-export const addNewProductfeatch = (title, price, description, image, category) => {
-    let param = {
-        "title": title,
-        "price": price,
-        "description": description,
-        "image": image,
-        "category": category
-    }
-    return async (dispatch) => {
-        await axios.post('https://fakestoreapi.com/products', param)
+export const featchData = () => {
+
+    return function (dispatch) {
+        dispatch(Request())
+        axios.get('https://jvideh.pythonanywhere.com/shopping/product_api/products/')
             .then(response => {
-                console.log(response.data);
+                // console.log("jvideh", response.data);
                 const products = response.data;
                 dispatch(getRequest(products));
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
                 dispatch(getError(error));
+            });
+    }
+}
+
+export const addNewProductfeatch = (name, brand, price, size) => {
+    return function (dispatch) {
+        let params = {
+            "product_name": name,
+            "product_brand": brand,
+            "product_price": price,
+            "product_size": size
+        }
+        dispatch(addNewProductRequest())
+        // console.log("addNewProductfeatch 1", params)
+        axios.post('http://jvideh.pythonanywhere.com/shopping/product_api/products/', params)
+            .then(response => {
+                console.log("addNewProductfeatch 2", response.data);
+                let products = response.data;
+                dispatch(addNewProduct(products));
+            })
+            .catch(error => {
+                console.log(error);
+                dispatch(addNewProductError(error));
             });
     }
 }

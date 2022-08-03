@@ -1,42 +1,44 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, Button, Container } from 'react-bootstrap'
-// import { addNewProductfeatch } from '../React-Redux/Action'
-
+import { addNewProductfeatch } from '../React-Redux/Action'
+import { useSelector, useDispatch } from 'react-redux'
 
 function AddNewPorduct() {
+    let addProduct00 = useSelector((state => state.items.products))
+    let dispatch = useDispatch();
+    console.log("AddNewPorduct", addProduct00)
     const [formData, setFormData] = useState({
-        title: '',
-        price: 0,
-        description: '',
-        image: '',
-        category: ''
+        product_name: '',
+        product_brand: '',
+        product_price: 0,
+        product_size: '',
     })
 
-    let onChangeHandelTitle = (e) => {
-        setFormData({ ...formData, title: e.target.value })
+    let onChangeHandelProductname = (e) => {
+        setFormData({ ...formData, product_name: e.target.value })
+    }
+
+    let onChangeHandelProductBrand = (e) => {
+        setFormData({ ...formData, product_brand: e.target.value })
     }
 
     let onChangeHandelPrice = (e) => {
-        setFormData({ ...formData, price: e.target.value })
+        setFormData({ ...formData, product_price: e.target.value })
     }
 
-    let onChangeHandelDescription = (e) => {
-        setFormData({ ...formData, description: e.target.value })
+    let onChangeHandelProductSize = (e) => {
+        setFormData({ ...formData, product_size: e.target.value })
     }
 
-    let onChangeHandelImage = (e) => {
-        setFormData({ ...formData, image: e.target.value })
-    }
-
-    let onChangeHandelCategory = (e) => {
-        setFormData({ ...formData, category: e.target.value })
-    }
     // console.log(formData.title)
 
-    let submitHandel = (e) => {
+    const submitHandel = (e) => {
+
         e.preventDefault()
-        // console.log(formData)
-        // addNewProductfeatch(formData.title, formData.price, formData.description, formData.image, formData.category)
+        console.log("submitHandel", formData)
+        dispatch(
+            addNewProductfeatch(formData.product_name, formData.product_brand, formData.product_price, formData.product_size)
+        )
     }
     return (
         <>
@@ -46,11 +48,11 @@ function AddNewPorduct() {
                     <Form onSubmit={submitHandel}>
                         <Row className="mb-3">
                             <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Title</Form.Label>
-                                <Form.Control type="text" placeholder="Enter title"
+                                <Form.Label>Product Name</Form.Label>
+                                <Form.Control type="text" placeholder="Product name"
                                     name="name"
-                                    value={FormData.title}
-                                    onChange={onChangeHandelTitle}
+                                    value={FormData.product_name}
+                                    onChange={onChangeHandelProductname}
                                 />
                             </Form.Group>
 
@@ -58,43 +60,28 @@ function AddNewPorduct() {
                                 <Form.Label>Price</Form.Label>
                                 <Form.Control type="number" placeholder="Price"
                                     name="price"
-                                    value={FormData.price}
+                                    value={FormData.product_price}
                                     onChange={onChangeHandelPrice}
                                 />
                             </Form.Group>
                         </Row>
-
-                        <Form.Group className="mb-3" controlId="formGridAddress1">
-                            <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" placeholder="description"
-                                name="description"
-                                value={formData.description}
-                                onChange={onChangeHandelDescription}
-                            />
-                        </Form.Group>
-
                         <Row className="mb-3">
-                            <Form.Group as={Col} controlId="formGridState">
-                                <Form.Label>Category</Form.Label>
-                                <Form.Select value={formData.category} name="category" onChange={onChangeHandelCategory}>
-                                    <option>choose...</option>
-                                    <option value="men's clothing">men's clothing</option>
-                                    <option value="women's clothing">women's clothing</option>
-                                    <option value="jewelery">jewelery</option>
-                                    <option value="Cell Phones & Accessories">Cell Phones & Accessories</option>
-                                    <option value="Apps & Games">Apps & Games</option>
-                                    <option value="Home & Kitchen">Home & Kitchen</option>
-                                    <option value="Sports & Outdoors">Sports & Outdoors</option>
-                                    <option value="Health, Household & Baby Care">Health, Household & Baby Care</option>
-                                    <option value="Grocery & Gourmet Food">Grocery & Gourmet Food</option>
-                                    <option value="Movies & TV">Movies & TV</option>
-                                    <option value="Video Games">Video Games</option>
-                                    <option value="electronics">electronics</option>
-                                    <option value="Computers">Computers</option>
-                                    <option value="Shoes">Shoes</option>
-                                </Form.Select>
+                            <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
+                                <Form.Label>Brand Name</Form.Label>
+                                <Form.Control type="text" placeholder="Brand name"
+                                    name="brand"
+                                    value={formData.product_brand}
+                                    onChange={onChangeHandelProductBrand}
+                                />
                             </Form.Group>
-
+                            <Form.Group as={Col} className="mb-3" controlId="formGridAddress1">
+                                <Form.Label>Product Size</Form.Label>
+                                <Form.Control type="text" placeholder="Product size"
+                                    name="size"
+                                    value={formData.product_size}
+                                    onChange={onChangeHandelProductSize}
+                                />
+                            </Form.Group>
                         </Row>
 
                         <Form.Group className="mb-3" id="formGridCheckbox">

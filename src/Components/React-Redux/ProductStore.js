@@ -7,7 +7,7 @@ import storage from 'redux-persist/lib/storage'
 const rootReducer = combineReducers({
     items: ProductReducer,
     cartProduct: CartItemsReducer,
-    addNewProduct: addNewProductReducer
+    addProduct: addNewProductReducer
 })
 
 const persistConfig = {
