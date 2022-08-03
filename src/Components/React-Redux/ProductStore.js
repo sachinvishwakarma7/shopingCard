@@ -1,4 +1,4 @@
-import { ProductReducer, CartItemsReducer, addNewProductReducer } from './ProductReducer'
+import { ProductReducer, CartItemsReducer, addNewProductReducer, DeleteProductReducer } from './ProductReducer'
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk'
 import { persistStore, persistReducer } from 'redux-persist'
@@ -7,7 +7,8 @@ import storage from 'redux-persist/lib/storage'
 const rootReducer = combineReducers({
     items: ProductReducer,
     cartProduct: CartItemsReducer,
-    addProduct: addNewProductReducer
+    addProduct: addNewProductReducer,
+    deleteProductReducer: DeleteProductReducer
 })
 
 const persistConfig = {

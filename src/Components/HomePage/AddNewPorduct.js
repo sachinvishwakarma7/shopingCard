@@ -1,12 +1,10 @@
 import React, { useState } from 'react'
 import { Form, Row, Col, Button, Container } from 'react-bootstrap'
 import { addNewProductfeatch } from '../React-Redux/Action'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 function AddNewPorduct() {
-    let addProduct00 = useSelector((state => state.items.products))
     let dispatch = useDispatch();
-    console.log("AddNewPorduct", addProduct00)
     const [formData, setFormData] = useState({
         product_name: '',
         product_brand: '',

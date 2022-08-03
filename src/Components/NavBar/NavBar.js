@@ -43,10 +43,10 @@ function NavBar({ searchText }) {
                         </Form>
 
                         <Nav>
-                            <Button className='m-2' href="/add_product" variant="outline-primary">Add_Item</Button>
-                            <Button className='m-2' href="/delete_product" variant="outline-primary">Delete_Item</Button>
-                            <Button className='m-2' variant="outline-primary">Update_Item</Button>
-                            <Button className='m-2' variant="danger">Login</Button>
+                            <Button className='m-1' href="/add_item" variant="outline-primary">Add_Item</Button>
+                            <Button className='m-1' href="/delete_item" variant="outline-primary">Delete_Item</Button>
+                            <Button className='m-1' href="/update_item" variant="outline-primary">Update_Item</Button>
+                            <Button className='m-1' variant="danger">Login</Button>
                         </Nav>
                     </Navbar.Collapse>
                 </Container>

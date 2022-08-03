@@ -5,6 +5,7 @@ import { imagesArray } from '../ProductImageArray/ImagesArray';
 
 function ProductCard({ items, searchValue }) {
 
+
     let cartProduct = useSelector(state => state.cartProduct.items)
     // console.log("ProductCard",items)
 
@@ -12,7 +13,8 @@ function ProductCard({ items, searchValue }) {
 
 
     let newItems = items.filter(data => {
-        return Object.values(data).join(" ").toLowerCase().includes(searchValue)
+        let search = searchValue.toLowerCase();
+        return Object.values(data).join(" ").toLowerCase().includes(search)
     })
 
     const addtocart = (items) => {
