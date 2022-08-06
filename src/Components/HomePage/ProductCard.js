@@ -3,6 +3,8 @@ import { allItems, featchData } from '../React-Redux/Action';
 import { useDispatch, useSelector } from 'react-redux';
 import { imagesArray } from '../ProductImageArray/ImagesArray';
 import { useEffect, useState } from 'react';
+import HorizontalSlider from './HorizontalSlider';
+import Footer from './Footer';
 
 function ProductCard({ searchValue }) {
     const [data, setdata] = useState([])
@@ -35,6 +37,7 @@ function ProductCard({ searchValue }) {
     // console.log('ProductCard', searchValue)
     return (
         <div>
+            <HorizontalSlider />
             {newItems.length > 0 ?
                 <Container>
                     <Row className="justify-content-md-center" >
@@ -59,6 +62,7 @@ function ProductCard({ searchValue }) {
                     </Row>
                 </Container> : <h4 style={{ textAlign: 'center', color: 'var(--bs-danger)' }}>"Opp...s! Please Try Again...."</h4>
             }
+            {/* <Footer /> */}
         </div >
     );
 }
