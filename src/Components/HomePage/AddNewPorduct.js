@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Form, Row, Col, Button, Container } from 'react-bootstrap'
-import { addNewProductfeatch } from '../React-Redux/Action'
+import { addNewProductfeatch, featchData } from '../React-Redux/Action'
 import { useDispatch } from 'react-redux'
 
 function AddNewPorduct() {
@@ -29,6 +29,11 @@ function AddNewPorduct() {
     }
 
     // console.log(formData.title)
+
+    // useEffect(() => {
+    //     dispatch(featchData())
+    //     console.log("dispatch")
+    // }, [dispatch])
 
     const submitHandel = (e) => {
 

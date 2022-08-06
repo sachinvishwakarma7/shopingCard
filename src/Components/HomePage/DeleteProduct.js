@@ -1,27 +1,33 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-import { DeleteProductfeatch } from '../React-Redux/Action';
+import { DeleteProductfeatch, featchData } from '../React-Redux/Action';
 import { useDispatch, useSelector } from 'react-redux';
 import { imagesArray } from '../ProductImageArray/ImagesArray';
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'
+// import LoadingSpinner from '../../LoadingSpinner'
 
-function DeleteProduct({ searchValue }) {
+function DeleteProduct({ searchValue, UpdateID }) {
 
-    let products = useSelector(state => state.items.products)
-    // console.log("ProductCard",items)
-    console.log("ProductCard", products)
+    const [prod, setProd] = useState([])
 
     let dispatch = useDispatch();
 
+    let products = useSelector(state => state.items.products)
 
-    let deletProduct = products.filter(data => {
+    const deleteItem = (id) => {
+        dispatch(DeleteProductfeatch(id))
+    }
+
+    useEffect(() => {
+        setProd(products)
+        dispatch(featchData())
+    }, [dispatch, products])
+
+
+    let deletProduct = prod.filter(data => {
         let search = searchValue.toLowerCase();
         return Object.values(data).join(" ").toLowerCase().includes(search)
     })
-
-
-    const deleteItem = (id) => {
-        console.log(id)
-        dispatch(DeleteProductfeatch(id))
-    }
 
     return (
         <div>
@@ -40,7 +46,8 @@ function DeleteProduct({ searchValue }) {
                                         <Card.Text>
                                             {newItems.product_brand}
                                         </Card.Text>
-                                        <Button onClick={() => deleteItem(newItems.id)} variant="danger">Remove Item</Button>
+                                        <Button className='m-1' onClick={() => deleteItem(newItems.id)} variant="danger">Remove Item</Button><br />
+                                        <Button className='m-1' onClick={() => UpdateID(newItems)} ><Link style={{ textDecoration: 'none', color: 'white' }} to='/update_item'>Update Item</Link></Button>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -49,7 +56,7 @@ function DeleteProduct({ searchValue }) {
                     </Row>
                 </Container> : <h4 style={{ textAlign: 'center', color: 'var(--bs-danger)' }}>"Opp...s! Please Try Again...."</h4>
             }
-        </div>
+        </div >
     );
 }
 

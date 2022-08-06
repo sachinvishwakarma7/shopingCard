@@ -2,6 +2,7 @@ import { USER_SEND_REQUEST, USER_GET_REQUEST, GET_ERROR } from './Type'
 import { ADD_ITEM, GET_ALL_ITEMS, DELETE_ITEM } from './Type'
 import { ADD_NEW_PRODUCT_REQUEST, ADD_NEW_PRODUCT, ADD_NEW_PRODUCT_ERROR } from './Type'
 import { DELETE_PRODUCT_REQUEST, DELETE_PRODUCT, DELETE_PRODUCT_ERROR } from './Type'
+import { UPDATE_PRODUCT } from './Type'
 // import { AxiosError } from 'axios'
 
 const cartItems = {
@@ -21,6 +22,12 @@ const initialStateAddProduct = {
 }
 
 const initialStateDeleteProduct = {
+    product: {},
+    loading: false,
+    error: ""
+}
+
+const initialStateUpdateSigleProduct = {
     product: {},
     loading: false,
     error: ""
@@ -92,7 +99,7 @@ export const addNewProductReducer = (state = initialStateAddProduct, action) => 
 }
 
 export const DeleteProductReducer = (state = initialStateDeleteProduct, action) => {
-    console.log("add", action.payload)
+    // console.log("add", action.payload)
     // console.log(AxiosError.ERR_BAD_REQUEST)
     switch (action.type) {
         case DELETE_PRODUCT_REQUEST: return {
@@ -105,6 +112,30 @@ export const DeleteProductReducer = (state = initialStateDeleteProduct, action) 
             loading: false
         }
         case DELETE_PRODUCT_ERROR: return {
+            ...state,
+            loading: false,
+            error: action.payload,
+            product: {}
+        }
+
+        default: return state;
+    }
+}
+
+export const UpdateSingleProducttReducer = (state = initialStateUpdateSigleProduct, action) => {
+    // console.log("add", action.payload)
+    // console.log(AxiosError.ERR_BAD_REQUEST)
+    switch (action.type) {
+        case USER_SEND_REQUEST: return {
+            ...state,
+            loading: true
+        }
+        case UPDATE_PRODUCT: return {
+            ...state,
+            product: action.payload,
+            loading: false
+        }
+        case GET_ERROR: return {
             ...state,
             loading: false,
             error: action.payload,

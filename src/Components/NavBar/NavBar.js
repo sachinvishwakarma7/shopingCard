@@ -43,9 +43,9 @@ function NavBar({ searchText }) {
                         </Form>
 
                         <Nav>
-                            <Button className='m-1' href="/add_item" variant="outline-primary">Add_Item</Button>
-                            <Button className='m-1' href="/delete_item" variant="outline-primary">Delete_Item</Button>
-                            <Button className='m-1' href="/update_item" variant="outline-primary">Update_Item</Button>
+                            <Button className='m-1' href="/add_item" variant="outline-primary">+</Button>
+                            <Button className='m-1' href="/update" variant="primary">Update</Button>
+                            {/* <Button className='m-1' href="/update_item" variant="outline-primary">Update_Item</Button> */}
                             <Button className='m-1' variant="danger">Login</Button>
                         </Nav>
                     </Navbar.Collapse>

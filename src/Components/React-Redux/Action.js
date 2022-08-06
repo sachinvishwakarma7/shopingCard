@@ -74,24 +74,33 @@ const addNewProductError = (error) => {
 
 //delete product
 
-const addProductRequest = (error) => {
+const deleteProductRequest = (error) => {
     return {
         type: DELETE_PRODUCT_REQUEST,
         payload: error
     }
 }
-const delProduct = (error) => {
+const delProduct = (id) => {
     return {
         type: DELETE_PRODUCT,
-        payload: error
+        payload: id
     }
 }
-const addProductError = (error) => {
+const deleteProductError = (error) => {
     return {
         type: DELETE_PRODUCT_ERROR,
         payload: error
     }
 }
+
+const updateProduct = (update) => {
+    return {
+        type: DELETE_PRODUCT_ERROR,
+        payload: update
+    }
+}
+
+
 
 // export const featchData = () => {
 //     return async (dispatch) => {
@@ -150,16 +159,37 @@ export const addNewProductfeatch = (name, brand, price, size) => {
 }
 
 export const DeleteProductfeatch = (id) => {
-    return async function (dispatch) {
-        dispatch(addProductRequest())
-        await axios.delete(`http://jvideh.pythonanywhere.com/shopping/product_api/products/${id}/`)
+    return function (dispatch) {
+        dispatch(deleteProductRequest())
+        axios.delete(`http://jvideh.pythonanywhere.com/shopping/product_api/products/${id}/`)
+            .then((response) => {
+                const product = response.data
+                // console.log("pr", product)
+                dispatch(delProduct(product))
+            })
+            .catch((error) => {
+                dispatch(deleteProductError(error))
+            })
+    }
+}
+
+export const updateSingleProduct = (id, name, brand, price, size) => {
+    return function (dispatch) {
+        dispatch(Request())
+        let params = {
+            "product_name": name,
+            "product_brand": brand,
+            "product_price": price,
+            "product_size": size
+        }
+        axios.put(`http://jvideh.pythonanywhere.com/shopping/product_api/products/${id}/`, params)
             .then((response) => {
                 const product = response.data
                 console.log(product)
-                dispatch(delProduct())
+                dispatch(updateProduct(product))
             })
             .catch((error) => {
-                dispatch(addProductError(error))
+                dispatch(getError(error))
             })
     }
 }

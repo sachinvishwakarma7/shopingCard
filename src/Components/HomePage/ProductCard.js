@@ -1,18 +1,25 @@
 import { Button, Card, Container, Row, Col } from 'react-bootstrap';
-import { allItems } from '../React-Redux/Action';
+import { allItems, featchData } from '../React-Redux/Action';
 import { useDispatch, useSelector } from 'react-redux';
 import { imagesArray } from '../ProductImageArray/ImagesArray';
+import { useEffect, useState } from 'react';
 
-function ProductCard({ items, searchValue }) {
+function ProductCard({ searchValue }) {
+    const [data, setdata] = useState([])
 
-
-    let cartProduct = useSelector(state => state.cartProduct.items)
-    // console.log("ProductCard",items)
+    const items = useSelector(state => state.items.products)
+    const cartProduct = useSelector(state => state.cartProduct.items)
+    // console.log("ProductCard", data)
 
     let dispatch = useDispatch();
 
+    useEffect(() => {
+        setdata(items)
+        // dispatch(featchData())
+        dispatch(featchData())
+    }, [dispatch, items])
 
-    let newItems = items.filter(data => {
+    let newItems = data.filter(data => {
         let search = searchValue.toLowerCase();
         return Object.values(data).join(" ").toLowerCase().includes(search)
     })
@@ -35,7 +42,7 @@ function ProductCard({ items, searchValue }) {
                             <Col key={newItems.id}>
                                 <Card className='m-2' style={{ width: '18rem', textAlign: 'center', alignItems: 'center' }}>
                                     <div style={{ width: '200px', height: '200px' }}>
-                                        <Card.Img className='h-100 w-100' variant="top" src={imagesArray[newItems.id - 3]} />
+                                        <Card.Img className='h-100 w-100' variant="top" src={imagesArray[newItems.id]} />
                                     </div>
                                     <Card.Body>
                                         <Card.Title>{newItems.product_name}</Card.Title>
@@ -43,7 +50,7 @@ function ProductCard({ items, searchValue }) {
                                         <Card.Text>
                                             {newItems.product_brand}
                                         </Card.Text>
-                                        <Button onClick={() => addtocart(newItems)} variant="primary">ADD TO CART</Button>
+                                        <h6><Button onClick={() => addtocart(newItems)} variant="primary">ADD TO CART</Button></h6>
                                     </Card.Body>
                                 </Card>
                             </Col>
@@ -52,7 +59,7 @@ function ProductCard({ items, searchValue }) {
                     </Row>
                 </Container> : <h4 style={{ textAlign: 'center', color: 'var(--bs-danger)' }}>"Opp...s! Please Try Again...."</h4>
             }
-        </div>
+        </div >
     );
 }
 
