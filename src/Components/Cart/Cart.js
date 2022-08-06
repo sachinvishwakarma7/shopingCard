@@ -74,7 +74,7 @@ function Cart() {
             <h5 className='text-center p-3' style={{ backgroundColor: 'var(--bs-gray-100)', color: 'var(--bs-primary)' }}>YOUR CART</h5>
             <div className='m-3'>
                 {items.length > 0 ?
-                    <Table className='table table-condensed text-center' style={{ alignItems: 'center', textAlign: 'center', tableLayout: 'fixed' }}>
+                    <Table className='table table-condensed text-center ' style={{ backgroundColor: 'var(--bs-gray-100)', alignItems: 'center', textAlign: 'center', tableLayout: 'fixed' }}>
                         <thead className='text-center'>
                             <tr>
                                 <th>#</th>

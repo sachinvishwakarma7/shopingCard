@@ -2,13 +2,18 @@ import React, { useEffect, useState } from 'react'
 import { Form, Row, Col, Button, Container } from 'react-bootstrap'
 import { addNewProductfeatch, featchData } from '../React-Redux/Action'
 import { useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
+import { AxiosError } from 'axios'
+
 
 function AddNewPorduct() {
+
+    let getError = useSelector((error => error.addProduct.error))
     let dispatch = useDispatch();
     const [formData, setFormData] = useState({
         product_name: '',
         product_brand: '',
-        product_price: 0,
+        product_price: null,
         product_size: '',
     })
 
@@ -34,15 +39,25 @@ function AddNewPorduct() {
     //     dispatch(featchData())
     //     console.log("dispatch")
     // }, [dispatch])
+    console.log("event", getError)
 
     const submitHandel = (e) => {
-
         e.preventDefault()
-        console.log("submitHandel", formData)
-        dispatch(
-            addNewProductfeatch(formData.product_name, formData.product_brand, formData.product_price, formData.product_size)
-        )
+        if (formData.product_name === '' || formData.product_brand === '' || formData.product_price === null || formData.product_size === '') {
+            alert("All input fields requried !")
+        } else {
+            dispatch(
+                addNewProductfeatch(formData.product_name,
+                    formData.product_brand,
+                    formData.product_price,
+                    formData.product_size)
+            )
+            alert("Add product successfully !")
+        }
     }
+
+    console.log("submitHandel", formData)
+
     return (
         <>
             <h5 className='text-center p-3' style={{ backgroundColor: 'var(--bs-gray-100)', color: 'var(--bs-primary)' }}>ADD PRODUCT</h5>

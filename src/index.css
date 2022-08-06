@@ -1,3 +1,7 @@
+html.head {
+  background-color: beige;
+}
+
 body {
   margin: 0;
   padding: 0;

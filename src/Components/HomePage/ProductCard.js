@@ -50,7 +50,7 @@ function ProductCard({ searchValue }) {
                                         <Card.Text>
                                             {newItems.product_brand}
                                         </Card.Text>
-                                        <h6><Button onClick={() => addtocart(newItems)} variant="primary">ADD TO CART</Button></h6>
+                                        <h6><Button onClick={() => addtocart(newItems)} variant="dark">ADD TO CART</Button></h6>
                                     </Card.Body>
                                 </Card>
                             </Col>

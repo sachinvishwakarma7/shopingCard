@@ -46,8 +46,8 @@ function DeleteProduct({ searchValue, UpdateID }) {
                                         <Card.Text>
                                             {newItems.product_brand}
                                         </Card.Text>
-                                        <Button className='m-1' onClick={() => deleteItem(newItems.id)} variant="danger">Remove Item</Button><br />
-                                        <Button className='m-1' onClick={() => UpdateID(newItems)} ><Link style={{ textDecoration: 'none', color: 'white' }} to='/update_item'>Update Item</Link></Button>
+                                        <Button className='m-1' onClick={() => UpdateID(newItems)} variant="dark" ><Link style={{ textDecoration: 'none', color: 'white' }} to='/update_item'>Update Item</Link></Button>
+                                        <Button className='m-1' onClick={() => deleteItem(newItems.id)} variant="danger">Remove Item</Button>
                                     </Card.Body>
                                 </Card>
                             </Col>

@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Navbar, Container, Form, Badge, Nav, Button } from 'react-bootstrap'
+import { Navbar, Container, Form, Badge, Nav, Button, InputGroup } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-// import { AiFillShopping } from 'react-icons/ai'
+import { BiSearch } from 'react-icons/bi'
 
 function NavBar({ searchText }) {
 
@@ -18,7 +18,7 @@ function NavBar({ searchText }) {
         <>
             <Navbar bg="light" expand="md" fixed="top" style={{ position: "sticky" }}>
                 <Container>
-                    <Navbar.Brand className="me-auto my-1 mx-5 my-lg-3" color='red' href="/">Shopping Cart</Navbar.Brand>
+                    <Navbar.Brand className="me-auto my-1 mx-5 my-lg-3" variant="danger" href="/">Shopping Cart</Navbar.Brand>
                     <Navbar.Toggle aria-controls="navbarScroll" />
                     <Navbar.Collapse id="navbarScroll">
                         <Nav
@@ -29,22 +29,27 @@ function NavBar({ searchText }) {
                             {/* <Nav.Link href="/">Home</Nav.Link>
                             <Nav.Link href="/cart">Cart<Badge bg='danger' style={{ fontSize: '14px' }}>{itemsLength.length}</Badge></Nav.Link> */}
 
-                            <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/">Home</Link></Navbar.Brand>
-                            <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/cart">Cart<Badge bg='danger' style={{ fontSize: '14px' }}>{itemsLength.length}</Badge></Link></Navbar.Brand>
+                            <Navbar.Brand><Link style={{ textDecoration: 'none', color: 'black' }} to="/">Home</Link></Navbar.Brand>
+                            <Navbar.Brand><Link style={{ textDecoration: 'none', color: 'black' }} to="/cart">Cart<Badge bg='danger' style={{ fontSize: '14px' }}>{itemsLength.length}</Badge></Link></Navbar.Brand>
                             {/* <Navbar.Brand><Link style={{ textDecoration: 'none' }} to="/add_product">AddProduct</Link></Navbar.Brand> */}
                         </Nav>
-                        <Form className='navbar-left m-2'>
-                            <Form.Control type="text" placeholder="Search"
-                                name='name'
-                                value={searchItem}
-                                onChange={handelChange}
-                            />
-                            {searchText(searchItem)}
+                        <Form className='navbar-right m-2'>
+                            <InputGroup>
+                                <InputGroup.Text id="basic-addon1"><BiSearch /></InputGroup.Text>
+                                <Form.Control type="text" placeholder="Search"
+                                    name='name'
+                                    value={searchItem}
+                                    aria-label="Username"
+                                    aria-describedby="basic-addon1"
+                                    onChange={handelChange}
+                                />
+                                {searchText(searchItem)}
+                            </InputGroup>
                         </Form>
 
                         <Nav>
-                            <Button className='m-1' href="/add_item" variant="outline-primary">+</Button>
-                            <Button className='m-1' href="/update" variant="primary">Update</Button>
+                            <Button className='m-1' href="/add_item" variant="outline-dark">+</Button>
+                            <Button className='m-1' href="/update" variant="dark">Update</Button>
                             {/* <Button className='m-1' href="/update_item" variant="outline-primary">Update_Item</Button> */}
                             <Button className='m-1' variant="danger">Login</Button>
                         </Nav>

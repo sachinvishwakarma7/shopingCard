@@ -159,9 +159,9 @@ export const addNewProductfeatch = (name, brand, price, size) => {
 }
 
 export const DeleteProductfeatch = (id) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(deleteProductRequest())
-        axios.delete(`http://jvideh.pythonanywhere.com/shopping/product_api/products/${id}/`)
+        await axios.delete(`http://jvideh.pythonanywhere.com/shopping/product_api/products/${id}/`)
             .then((response) => {
                 const product = response.data
                 // console.log("pr", product)
@@ -174,7 +174,7 @@ export const DeleteProductfeatch = (id) => {
 }
 
 export const updateSingleProduct = (id, name, brand, price, size) => {
-    return function (dispatch) {
+    return async function (dispatch) {
         dispatch(Request())
         let params = {
             "product_name": name,
@@ -182,7 +182,7 @@ export const updateSingleProduct = (id, name, brand, price, size) => {
             "product_price": price,
             "product_size": size
         }
-        axios.put(`http://jvideh.pythonanywhere.com/shopping/product_api/products/${id}/`, params)
+        await axios.put(`http://jvideh.pythonanywhere.com/shopping/product_api/products/${id}/`, params)
             .then((response) => {
                 const product = response.data
                 console.log(product)

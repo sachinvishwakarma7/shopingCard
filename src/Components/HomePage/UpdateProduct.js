@@ -11,7 +11,7 @@ function UpdateProduct({ value }) {
   const [formData, setFormData] = useState({
     product_name: '',
     product_brand: '',
-    product_price: 0,
+    product_price: null,
     product_size: ''
   })
 
@@ -46,11 +46,15 @@ function UpdateProduct({ value }) {
   }
 
   const submitHandel = (e) => {
-
     e.preventDefault()
-    console.log("submitHandel", formData)
-    dispatch(updateSingleProduct(value.id, formData.product_name, formData.product_brand, formData.product_price, formData.product_size))
+    if (formData.product_name === '' || formData.product_brand === '' || formData.product_price === null || formData.product_size === '') {
+      alert("All input fields requried !")
+    } else {
+      dispatch(updateSingleProduct(value.id, formData.product_name, formData.product_brand, formData.product_price, formData.product_size))
+      alert("Product Update successfully !")
+    }
   }
+  // console.log("submitHandel", formData)
 
   return (
     <>
