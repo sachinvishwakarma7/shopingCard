@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { imagesArray } from '../ProductImageArray/ImagesArray';
 import { useEffect, useState } from 'react';
 import HorizontalSlider from './HorizontalSlider';
-import Footer from './Footer';
+// import Footer from './Footer';
 
 function ProductCard({ searchValue }) {
     const [data, setdata] = useState([])
